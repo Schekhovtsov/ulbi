@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-dizing: border-box;
+}
+
+#root {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.app {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.post {
+    display: flex;
+    padding: 10px;
+    margin: 10px 0px 10px 0px;
+    border: 2px solid cadetblue;
+    justify-content: space-between;
+}
+
+.post__text {
+    margin-top: 10px;
+ }
+
+.myForm{
+    display: flex;
+}
