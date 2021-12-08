@@ -1,17 +1,14 @@
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import './styles/app.css';
-import PostItem from './components/PostItem';
 import PostList from './components/PostList';
-import MyButton from './UI/button/MyButton';
-import MyInput from './UI/input/MyInput';
 import PostForm from './components/PostForm';
 
 function App() {
 
     const [posts, setPosts] = useState([
-        {id: 1, title: 'First title', body: 'Raz'},
-        {id: 2, title: 'Second title', body: 'Dva'},
-        {id: 3, title: 'Third title', body: 'A Tri'}
+        {id: 1, title: 'Первый пост', body: 'Текст первого поста'},
+        {id: 2, title: 'Второй пост', body: 'Во втором посте текст такой'},
+        {id: 3, title: 'Третий пост', body: 'А это текст в третьем посте'}
     ]);
 
     const createPost = (newPost) => {
@@ -22,23 +19,30 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
-    const [selectedSort, setSelectedSort] = useState('');
+    const [filter, setFilter] = useState({sort: '', query: ''})
 
-    const sortPosts = (sort) => {
-        setSelectedSort(sort)
-        setPosts([...posts].sort((a, b) =>
-            a[sort].localeCompare(b[sort])
-        ))
-    }
+    const sortedPosts = useMemo(() => {
+        if (filter.sort) {
+            return [...posts].sort((a, b) =>
+                a[filter.sort].localeCompare(b[filter.sort]))
+        }
+        return posts
+    }, [filter.sort, posts]);
+
+    const sortedAndSearchedPost = useMemo(() => {
+        return sortedPosts.filter(p =>
+            p.title.toLowerCase().includes(filter.query.toLowerCase())
+        )
+    }, [filter.query, sortedPosts]);
 
     return (
         <div className='app'>
             <PostForm create={createPost} />
-            <PostList posts={posts}
+            <PostList posts={sortedAndSearchedPost}
                       title='Список постов'
                       remove={removePost}
-                      selectedSort={selectedSort}
-                      sortPosts={sortPosts} />
+                      filter={filter}
+                      setFilter={setFilter}/>
         </div>
     );
 

@@ -8,7 +8,6 @@ const PostForm = ({create}) => {
 
     const addNewPost = (e) => {
         e.preventDefault();
-        //setPosts([...posts, {...post, id: Date.now()}]);
         const newPost = {
             ...post, id: Date.now()
         }
@@ -32,7 +31,7 @@ const PostForm = ({create}) => {
                          onChange={e => setPost({...post, body: e.target.value})} />
             </div>
             <div>
-                <MyButton onClick={addNewPost}>Button</MyButton>
+                <MyButton onClick={addNewPost}>Добавить пост</MyButton>
             </div>
         </form>
     );
