@@ -4,55 +4,41 @@ import PostItem from './components/PostItem';
 import PostList from './components/PostList';
 import MyButton from './UI/button/MyButton';
 import MyInput from './UI/input/MyInput';
+import PostForm from './components/PostForm';
 
 function App() {
 
     const [posts, setPosts] = useState([
-        {id: 1, title: 'First title', body: 'Props text'},
-        {id: 2, title: 'Second title', body: 'Props text'},
-        {id: 3, title: 'Third title', body: 'Props text'}
+        {id: 1, title: 'First title', body: 'Raz'},
+        {id: 2, title: 'Second title', body: 'Dva'},
+        {id: 3, title: 'Third title', body: 'A Tri'}
     ]);
 
-    const [post, setPost] = useState({ title: '', body: '' });
-
-    //const [title, setTitle] = useState('');
-    //const [body, setBody] = useState('');
-
-    const addNewPost = (e) => {
-
-        e.preventDefault();
-
-        setPosts([...posts, {...post, id: Date.now()}]);
-        setPost({  title: '',  body: ''});
-        console.log(posts)
+    const createPost = (newPost) => {
+        setPosts([...posts, newPost])
     }
 
-    //const bodyInputRef = useRef();
+    const removePost = (post) => {
+        setPosts(posts.filter(p => p.id !== post.id))
+    }
+
+    const [selectedSort, setSelectedSort] = useState('');
+
+    const sortPosts = (sort) => {
+        setSelectedSort(sort)
+        setPosts([...posts].sort((a, b) =>
+            a[sort].localeCompare(b[sort])
+        ))
+    }
 
     return (
         <div className='app'>
-
-            <form className='myForm'>
-                <div>
-                    { /* Управляемый компонент - useState */ }
-                    <MyInput type='text'
-                             placeholder='Название поста'
-                             value={post.title}
-                             onChange={e => setPost({...post, title: e.target.value})} />
-                </div>
-                <div>
-                    <MyInput type='text'
-                             placeholder='Описание поста'
-                             value={post.body}
-                             onChange={e => setPost({...post, body: e.target.value})} />
-                </div>
-               <div>
-                    <MyButton onClick={addNewPost}>Button</MyButton>
-               </div>
-            </form>
-
-           <PostList posts={posts} title='Список постов'/>
-
+            <PostForm create={createPost} />
+            <PostList posts={posts}
+                      title='Список постов'
+                      remove={removePost}
+                      selectedSort={selectedSort}
+                      sortPosts={sortPosts} />
         </div>
     );
 
