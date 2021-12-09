@@ -21,9 +21,8 @@
   margin: 10px 0px 10px 0px;
   border: 2px solid cadetblue;
   justify-content: space-between; }
-
-.post__text {
-  margin-top: 10px; }
+  .post .text {
+    margin-top: 10px; }
 
 .myForm {
   display: flex;
@@ -32,7 +31,7 @@
   .myForm .item {
     margin: 5px 0px; }
 
-.postsManipulatePanel {
+.postsFilter {
   display: flex;
   padding: 10px;
   border: 1px solid cornflowerblue; }

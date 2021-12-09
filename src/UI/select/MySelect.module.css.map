@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAU;EACN,OAAO,EAAE,QAAQ;EACjB,YAAY,EAAE,GAAG;EACjB,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,WAAW;EACvB,MAAM,EAAE,cAAc;EACtB,aAAa,EAAE,GAAG",
+"sources": ["MySelect.module.scss"],
+"names": [],
+"file": "MySelect.module.css"
+}

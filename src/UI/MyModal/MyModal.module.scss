@@ -7,13 +7,18 @@
     display: none;
     background: rgba(0, 0, 0, 0.4);
 
-    &.active{
+    & .title {
+        font-size: 18pt;
+        margin-bottom: 10px;
+    }
+
+    &.active {
         display: flex;
         justify-content: center;
         align-items: center;
     }
 
-    & .content{
+    & .content {
         padding: 20px;
         background: white;
         border-radius: 15px;

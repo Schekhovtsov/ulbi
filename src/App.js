@@ -3,6 +3,7 @@ import './styles/app.scss';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import MyModal from './UI/MyModal/MyModal';
+import MyButton from './UI/button/MyButton';
 
 function App() {
 
@@ -12,8 +13,11 @@ function App() {
         {id: 3, title: 'Третий пост', body: 'А это текст в третьем посте'}
     ]);
 
+    const [modal, setModal] = useState(false);
+
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
+        setModal(false)
     }
 
     const removePost = (post) => {
@@ -36,9 +40,15 @@ function App() {
         )
     }, [filter.query, sortedPosts]);
 
+
+
     return (
         <div className='app'>
-            <MyModal>
+            <MyButton onClick={() => setModal(true)}>
+                Добавить пост
+            </MyButton>
+            <MyModal title='Длбавить пост'
+                     visible={modal} setVisible={setModal}>
                 <PostForm create={createPost} />
             </MyModal>
             <PostList posts={sortedAndSearchedPost}

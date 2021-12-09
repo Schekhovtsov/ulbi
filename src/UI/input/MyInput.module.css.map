@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,QAAS;EACL,OAAO,EAAE,QAAQ;EACjB,YAAY,EAAE,GAAG;EACjB,SAAS,EAAE,IAAI;EACf,UAAU,EAAE,WAAW;EACvB,MAAM,EAAE,cAAc;EACtB,aAAa,EAAE,GAAG",
+"sources": ["MyInput.module.scss"],
+"names": [],
+"file": "MyInput.module.css"
+}

@@ -5,13 +5,13 @@ const PostItem = ({post, number, remove}) => {
 
     return (
         <div className='post'>
-            <div className='post__content'>
+            <div className='content'>
                 <strong>{post.title}</strong> <i>Пост #{number}</i>
-                <div className='post__text'>
+                <div className='text'>
                     {post.body}
                 </div>
             </div>
-            <div className='post__buttons'>
+            <div className='buttons'>
                 <MyButton onClick={() => {remove(post)}}>
                     Удалить
                 </MyButton>

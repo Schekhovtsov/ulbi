@@ -4,7 +4,7 @@ import MySelect from '../UI/select/MySelect';
 
 const PostFilter = ({filter, setFilter}) => {
     return (
-        <div className='postsManipulatePanel'>
+        <div className='postsFilter'>
             <div>
                 <MyInput placeholder='Поиск'
                          value={filter.query}
