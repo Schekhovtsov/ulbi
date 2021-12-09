@@ -1,10 +1,11 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import './styles/app.scss';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import MyModal from './UI/MyModal/MyModal';
 import MyButton from './UI/button/MyButton';
 import {usePosts} from './hooks/usePosts';
+
 
 function App() {
 
@@ -17,6 +18,14 @@ function App() {
     const [modal, setModal] = useState(false);
     const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query)
 
+    useEffect(() => {
+        fetchPosts()
+
+        return () => {
+            // Очитска
+        }
+    }, [])
+
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
@@ -25,6 +34,20 @@ function App() {
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
     }
+
+    const fetchPosts = async () => {
+
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts?limit=2')
+        if (response.ok) {
+            const data = await response.json();
+            setPosts(data)
+        }   else    {
+            alert('Ошибка HTTP: ' + response.status)
+        }
+
+    }
+
+
 
     return (
         <div className='app'>
