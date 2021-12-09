@@ -4,6 +4,7 @@ import PostList from './components/PostList';
 import PostForm from './components/PostForm';
 import MyModal from './UI/MyModal/MyModal';
 import MyButton from './UI/button/MyButton';
+import {usePosts} from './hooks/usePosts';
 
 function App() {
 
@@ -12,8 +13,9 @@ function App() {
         {id: 2, title: 'Второй пост', body: 'Во втором посте текст такой'},
         {id: 3, title: 'Третий пост', body: 'А это текст в третьем посте'}
     ]);
-
+    const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
+    const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query)
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -24,33 +26,17 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
-    const [filter, setFilter] = useState({sort: '', query: ''})
-
-    const sortedPosts = useMemo(() => {
-        if (filter.sort) {
-            return [...posts].sort((a, b) =>
-                a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts
-    }, [filter.sort, posts]);
-
-    const sortedAndSearchedPost = useMemo(() => {
-        return sortedPosts.filter(p =>
-            p.title.toLowerCase().includes(filter.query.toLowerCase())
-        )
-    }, [filter.query, sortedPosts]);
-
-
-
     return (
         <div className='app'>
             <MyButton onClick={() => setModal(true)}>
                 Добавить пост
             </MyButton>
+
             <MyModal title='Длбавить пост'
                      visible={modal} setVisible={setModal}>
                 <PostForm create={createPost} />
             </MyModal>
+
             <PostList posts={sortedAndSearchedPost}
                       title='Список постов'
                       remove={removePost}
