@@ -36,4 +36,24 @@
   padding: 10px;
   border: 1px solid cornflowerblue; }
 
+.remove-btn {
+  margin-right: 0.5rem; }
+
+.post-enter {
+  opacity: 0;
+  transform: translateX(150px); }
+
+.post-enter-active {
+  transform: translateX(0px);
+  opacity: 1;
+  transition: all 500ms ease-in; }
+
+.post-exit {
+  opacity: 1; }
+
+.post-exit-active {
+  transform: translateX(-150px);
+  opacity: 0;
+  transition: all 500ms ease-out; }
+
 /*# sourceMappingURL=app.css.map */
