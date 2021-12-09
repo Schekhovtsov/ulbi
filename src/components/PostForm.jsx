@@ -17,20 +17,20 @@ const PostForm = ({create}) => {
 
     return (
         <form className='myForm'>
-            <div>
+            <div className='item'>
                 { /* Управляемый компонент - useState */ }
                 <MyInput type='text'
                          placeholder='Название поста'
                          value={post.title}
                          onChange={e => setPost({...post, title: e.target.value})} />
             </div>
-            <div>
+            <div className='item'>
                 <MyInput type='text'
                          placeholder='Описание поста'
                          value={post.body}
                          onChange={e => setPost({...post, body: e.target.value})} />
             </div>
-            <div>
+            <div className='item'>
                 <MyButton onClick={addNewPost}>Добавить пост</MyButton>
             </div>
         </form>

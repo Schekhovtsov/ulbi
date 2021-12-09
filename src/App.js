@@ -1,7 +1,8 @@
 import React, {useMemo, useState} from 'react';
-import './styles/app.css';
+import './styles/app.scss';
 import PostList from './components/PostList';
 import PostForm from './components/PostForm';
+import MyModal from './UI/MyModal/MyModal';
 
 function App() {
 
@@ -37,7 +38,9 @@ function App() {
 
     return (
         <div className='app'>
-            <PostForm create={createPost} />
+            <MyModal>
+                <PostForm create={createPost} />
+            </MyModal>
             <PostList posts={sortedAndSearchedPost}
                       title='Список постов'
                       remove={removePost}
