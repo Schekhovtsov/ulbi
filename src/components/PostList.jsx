@@ -24,7 +24,7 @@ const PostList = ({posts, title, remove,
                         </CSSTransition>
                     )}
                     </TransitionGroup>
-                : 'Posts not found!'
+                : null
             }
 
 

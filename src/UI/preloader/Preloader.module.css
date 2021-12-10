@@ -1,0 +1,25 @@
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white; }
+  .loader .icon {
+    width: 100px;
+    height: 40px;
+    background-color: #48a5ff;
+    animation: rotate 2s infinite linear; }
+
+@keyframes rotate {
+  0% {
+    transform: scaleY(2); }
+  50% {
+    transform: scaleY(1); }
+  100% {
+    transform: scaleY(2); } }
+
+/*# sourceMappingURL=Preloader.module.css.map */
