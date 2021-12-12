@@ -1,9 +1,10 @@
 import React from 'react';
 import './styles/app.scss';
-import Posts from './routes/Posts';
+import Posts from './pages/Posts';
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom';
-import About from './routes/About';
+import About from './pages/About';
 import Navbar from './UI/navbar/Navbar';
+import PostPage from './pages/PostPage';
 
 function App() {
 
@@ -13,9 +14,9 @@ function App() {
            <Navbar />
 
            <Routes>
-               <Route path='posts' element={<Posts />} />
-               <Route path='about' element={<About />} />
-               <Route path="*" element={<Navigate replace to='/posts'/>} />
+               <Route path='/posts' element={<Posts />} />
+               <Route path='/posts/:id' element={<PostPage />} />
+               <Route path='/about' element={<About />} />
            </Routes>
 
        </BrowserRouter>

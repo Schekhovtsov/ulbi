@@ -14,8 +14,6 @@ export const getPagesArray = (totalPages) => {
         pagesArray.push(i + 1);
     }
 
-    console.log(pagesArray)
-
     return pagesArray;
 
 }
