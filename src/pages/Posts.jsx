@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import '../styles/app.scss';
 import PostList from '../components/PostList';
 import PostForm from '../components/PostForm';
@@ -10,31 +10,33 @@ import Preloader from '../UI/preloader/Preloader';
 import {useFetching} from '../hooks/useFetching';
 import {getPagesCount} from '../utils/pages';
 import Pagination from '../UI/pagination/Pagination';
+import {useObserver} from '../hooks/useObserver';
 
 function Posts() {
 
-    const [posts, setPosts] = useState([
-        /*        {id: 1, title: 'Первый пост', body: 'Текст первого поста'},
-                {id: 2, title: 'Второй пост', body: 'Во втором посте текст такой'},
-                {id: 3, title: 'Третий пост', body: 'А это текст в третьем посте'}*/
-    ]);
+    const [posts, setPosts] = useState([]);
     const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
     const [limit, setLimit] = useState(3);
     const [page, setPage] = useState(1);
+    const getMoreElement = useRef();
 
     const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query);
 
-    const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
         const [postsData, postsCount] = await PostService.getAll(limit, page);
-        setPosts(postsData);
+        setPosts([...posts, ...postsData]);
         setTotalPages(getPagesCount(postsCount, limit));
     });
 
+    useObserver(getMoreElement, page < totalPages, isPostsLoading, () => {
+        setPage(page + 1);
+    } )
+
     useEffect(() => {
-        fetchPosts()
-    }, [page])
+        fetchPosts(limit, page)
+    }, [page, limit])
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
@@ -51,8 +53,6 @@ function Posts() {
 
     return (
         <div className='app'>
-
-            {(isPostsLoading) && <Preloader />}
 
             <MyButton onClick={() => setModal(true)}>
                 Добавить пост
@@ -71,11 +71,19 @@ function Posts() {
                       title='Список постов'
                       remove={removePost}
                       filter={filter}
-                      setFilter={setFilter}/>
+                      setFilter={setFilter}
+                      limit={limit}
+                      setLimit={setLimit} />
 
             <Pagination totalPages={totalPages}
                         page={page}
                         changePage={changePage} />
+
+            <div ref={getMoreElement}
+                 style={{height:20, background: 'red'}}>
+            </div>
+
+            {isPostsLoading && <Preloader />}
 
         </div>
     );

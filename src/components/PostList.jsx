@@ -2,15 +2,20 @@ import React from 'react';
 import PostItem from './PostItem';
 import PostFilter from './PostFilter';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import MySelect from '../UI/select/MySelect';
 
 const PostList = ({posts, title, remove,
-                  filter, setFilter}) => {
+                  filter, setFilter,
+                  limit, setLimit}) => {
 
     return (
         <div>
             <h1 className='titleHeader'>{title}</h1>
 
-            <PostFilter filter={filter} setFilter={setFilter} />
+            <PostFilter filter={filter} setFilter={setFilter}
+                        limit={limit} setLimit={setLimit} />
+
+
 
             {posts.length
                 ?   <TransitionGroup>
