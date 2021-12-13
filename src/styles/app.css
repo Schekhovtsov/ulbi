@@ -26,6 +26,8 @@
     color: black; }
     .navbar a:hover {
       color: blue; }
+  .navbar .MyButton {
+    margin-left: auto; }
 
 .titleHeader {
   margin: 10px 0px; }
