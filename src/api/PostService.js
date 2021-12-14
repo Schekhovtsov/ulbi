@@ -1,5 +1,5 @@
 export default class PostService {
-    static async getAll(limit = 10, page = 1) {
+    static async getPosts(limit = 1, page = 1) {
 
         const url = new URL("https://jsonplaceholder.typicode.com/posts"),
               params = {
@@ -17,6 +17,14 @@ export default class PostService {
         const count = response.headers.get('X-Total-Count');
 
         return [data, count]
+
+    }
+
+    static async getAll() {
+
+        const response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
+        const data = await response.json();
+        return data;
 
     }
 

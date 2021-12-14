@@ -15,6 +15,7 @@ import {useObserver} from '../hooks/useObserver';
 function Posts() {
 
     const [posts, setPosts] = useState([]);
+    const [allPosts, setAllPosts] = useState([]); // for sort
     const [filter, setFilter] = useState({sort: '', query: ''});
     const [modal, setModal] = useState(false);
     const [totalPages, setTotalPages] = useState(0);
@@ -22,13 +23,17 @@ function Posts() {
     const [page, setPage] = useState(1);
     const getMoreElement = useRef();
 
-    const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query);
+    const sortedAndSearchedPost = usePosts(posts, filter.sort, filter.query); // было: posts вместо allPosts
 
     const [fetchPosts, isPostsLoading, postError] = useFetching(async (limit, page) => {
-        const [postsData, postsCount] = await PostService.getAll(limit, page);
+        const [postsData, postsCount] = await PostService.getPosts(limit, page);
+        const allPostsData = await PostService.getAll(); // for sort
         setPosts([...posts, ...postsData]);
+        setAllPosts(allPostsData); // for sort
         setTotalPages(getPagesCount(postsCount, limit));
     });
+
+
 
     useObserver(getMoreElement, page < totalPages, isPostsLoading, () => {
         setPage(page + 1);
